@@ -134,6 +134,64 @@
             color: #666;
             text-align: left;
         }
+
+        /* 移动端优化 */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .image-container {
+                height: 250px;
+                margin: 15px 0;
+            }
+            
+            .buttons {
+                gap: 15px;
+                margin-top: 20px;
+            }
+            
+            button {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            .success-message {
+                font-size: 22px;
+                margin-top: 20px;
+            }
+            
+            .heart {
+                font-size: 24px;
+            }
+        }
+
+        /* 针对小屏幕手机的额外优化 */
+        @media screen and (max-width: 380px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .image-container {
+                height: 200px;
+            }
+            
+            button {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -156,7 +214,7 @@
         <div class="instructions">
             <p><strong>使用说明：</strong></p>
             <p>1. 将此HTML文件保存到与图片相同的目录中</p>
-            <p>2. 将图片命名为1.jpg、2.jpg和3.jpg</p>
+            <p>2. 将图片命名为1.jpg、2.jpg和3.png</p>
             <p>3. 在浏览器中打开此HTML文件即可使用</p>
             <p>4. 如果图片无法显示，请检查文件名是否正确</p>
         </div>
@@ -209,6 +267,29 @@
             
             // 更新标题文本
             document.querySelector('h1').textContent = '太棒了！我们在一起吧！';
+        });
+
+        // 添加触摸事件支持（针对移动端）
+        yesBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            // 重用点击事件逻辑
+            displayImage.src = images[2];
+            displayImage.alt = "严肃表情的男士";
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            successMessage.style.display = 'block';
+            document.querySelector('h1').textContent = '太棒了！我们在一起吧！';
+        });
+
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            noCount++;
+            if (noCount === 1) {
+                displayImage.src = images[1];
+                displayImage.alt = "正式证件照的男士";
+            }
+            currentSize += 2;
+            noBtn.style.fontSize = currentSize + 'px';
         });
         
         // 预加载图片
